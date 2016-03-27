@@ -1,0 +1,24 @@
+extend default
+
+block content
+  form(action='/relays', method='POST')
+    .row
+      .col-xs-6
+                  .form-group
+                    label Checkboxes
+                    .checkbox
+                      label
+                        input(type="checkbox", name="chkbox1", checked=(true===false ? "checked" : undefined))
+                        | Checkbox 1
+                    .checkbox
+                      label
+                        input(type="checkbox", name='chkbox2', checked=(true===false ? "checked" : undefined) )
+                        | Checkbox 2
+                    .checkbox
+                      label
+                        input(type="checkbox", name='chkbox3', checked=(true===false ? "checked" : undefined) )
+                        | Checkbox 3
+                      input.btn.btn-primary(type="submit", value='Relays')
+
+
+

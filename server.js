@@ -6,6 +6,7 @@ var express = require('express')
   , template2 = require('jade').compileFile(__dirname + '/source/templates/newspage.jade')
   , template3 = require('jade').compileFile(__dirname + '/source/templates/forms1.jade')
   , template4 = require('jade').compileFile(__dirname + '/source/templates/forms.jade')
+  , template5 = require('jade').compileFile(__dirname + '/source/templates/forms2.jade')
 
 app.use(logger('dev'))
 app.use(express.static(__dirname + '/static'))
@@ -22,9 +23,9 @@ app.get('/', function (req, res, next) {
   }
 })
 
-app.get('/news', function (req, res, next) {
+app.get('/textbox', function (req, res, next) {
   try {
-    var html = template3({ title: 'Forms1' })
+    var html = template3({ title: 'Text Box Forms' })
     res.send(html)
   } catch (e) {
     next(e)
@@ -40,7 +41,7 @@ app.get('/about', function (req, res, next) {
   }
 })
 
-app.post('/signup', function(req, res) {
+app.post('/signup', function(req, res, next) {
   
 	console.log('posted form data : ', 
 		    req.body.firstname, 
@@ -48,6 +49,25 @@ app.post('/signup', function(req, res) {
 		    req.body.email,
 		    req.body.username,
 		    req.body.password
+		    );
+
+})
+
+app.get('/checkbox', function (req, res, next) {
+  try {
+    var html = template5({ title: 'Check Box Forms' })
+    res.send(html)
+  } catch (e) {
+    next(e)
+  }
+})
+
+app.post('/relays', function(req, res) {
+  
+	console.log('posted form data : ', 
+		    req.body.chkbox1,
+		    req.body.chkbox2,
+		    req.body.chkbox3
 		    );
 
 })
