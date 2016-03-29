@@ -67,7 +67,7 @@ app.post('/relays', function(req, res) {
 	console.log('posted form data : ', 
 		    req.body.chkbox1,
 		    req.body.chkbox2,
-		    req.body.chkbox3
+		    req.body.duration
 		    );
 
 })
