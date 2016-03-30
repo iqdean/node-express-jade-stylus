@@ -55,7 +55,7 @@ app.post('/signup', function(req, res, next) {
 
 app.get('/checkbox', function (req, res, next) {
   try {
-    var html = template5({ title: 'Check Box Forms' })
+      var html = template5({ title: 'Check Box Forms', r1ps: 'on', r2ps: 'off', r3ps: ''})
     res.send(html)
   } catch (e) {
     next(e)
@@ -66,6 +66,7 @@ app.post('/relays', function(req, res) {
   
 	console.log('r1 state duration : ', req.body.r1, req.body.r1dur);
 	console.log('r2 state duration : ', req.body.r2, req.body.r2dur);
+	console.log('r3 state duration : ', req.body.r3, req.body.r3dur);
 
 })
 
