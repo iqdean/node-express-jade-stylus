@@ -6,13 +6,27 @@ block content
       .col-xs-6
         form(role="form")
           .form-group
-            label Relay1 
-              input(type="checkbox", name="chkbox1" )
-              |  On 
-              input(type="checkbox", name='chkbox2' )
-              |  Off  
+            label Relay 1 
+              input(type="radio", name="r1", value="on")
+              |  On  
+              input(type="radio", name='r1', value="off")
+              |  Off   
             label Duration 
-            select(id="dur123" name="duration")
+            select(id="dur123" name="r1dur")
+              option -1
+              option 1
+              option 2
+              option 3
+              option 4
+              option 5
+          .form-group
+            label Relay 2 
+              input(type="radio", name="r2", value="on", checked="checked")
+              |  On  
+              input(type="radio", name='r2', value="off")
+              |  Off   
+            label Duration 
+            select(id="dur123" name="r2dur")
               option -1
               option 1
               option 2

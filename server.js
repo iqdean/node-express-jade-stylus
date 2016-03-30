@@ -64,11 +64,8 @@ app.get('/checkbox', function (req, res, next) {
 
 app.post('/relays', function(req, res) {
   
-	console.log('posted form data : ', 
-		    req.body.chkbox1,
-		    req.body.chkbox2,
-		    req.body.duration
-		    );
+	console.log('r1 state duration : ', req.body.r1, req.body.r1dur);
+	console.log('r2 state duration : ', req.body.r2, req.body.r2dur);
 
 })
 
