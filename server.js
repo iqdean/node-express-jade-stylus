@@ -53,13 +53,19 @@ app.post('/signup', function(req, res, next) {
 
 })
 
-app.get('/checkbox', function (req, res, next) {
-  try {
-      var html = template5({ title: 'Check Box Forms', r1ps: 'on', r2ps: 'off', r3ps: ''})
+app.get('/relaytest', function (req, res, next) {
+
+// TODO - add code to read relay ps and populate rps[]
+
+  //var rps = ['on', 'off', '']
+
+  try {  // assume we can pass json objects vs json strings to jade templates
+      var html = template5({ title: 'Relay Test', rps: ['on', 'off', ''] })
     res.send(html)
   } catch (e) {
     next(e)
   }
+
 })
 
 app.post('/relays', function(req, res) {
