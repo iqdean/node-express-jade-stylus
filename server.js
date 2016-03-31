@@ -57,10 +57,10 @@ app.get('/relaytest', function (req, res, next) {
 
 // TODO - add code to read relay ps and populate rps[]
 
-  //var rps = ['on', 'off', '']
+  var rps = ['', 'on', '']
 
   try {  // assume we can pass json objects vs json strings to jade templates
-      var html = template5({ title: 'Relay Test', rps: ['on', 'off', ''] })
+      var html = template5({ title: 'Relay Test', rps })
     res.send(html)
   } catch (e) {
     next(e)
@@ -73,7 +73,7 @@ app.post('/relays', function(req, res) {
 	console.log('r1 state duration : ', req.body.r1, req.body.r1dur);
 	console.log('r2 state duration : ', req.body.r2, req.body.r2dur);
 	console.log('r3 state duration : ', req.body.r3, req.body.r3dur);
-
+	res.redirect('/relaytest')
 })
 
 app.listen(process.env.PORT || 3000, function () {
