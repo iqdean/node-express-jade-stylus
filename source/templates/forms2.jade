@@ -5,6 +5,13 @@ extend default
 // - {"rps" : ['on', 'off', '']}
 
 block content
+  p.
+    Present State - displayed in radio buttons
+  p.
+    Next State - select on/off state & duration, click Submit to apply
+  p.
+    Use the Reset Button to clear selections back to Present State 
+
   form(action='/relays', method='POST')
     .row
       .col-xs-6
@@ -52,6 +59,5 @@ block content
               option 4
               option 5
           input.btn.btn-primary(type="submit", value='Relays')
-
-
+          button.btn.btn-default(type="reset") Reset Button
 

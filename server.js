@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 app.get('/', function (req, res, next) {
   try {
-    var html = template1({ title: 'Home' })
+    var html = template1({ title: '1ST UP TITLE' })
     res.send(html)
   } catch (e) {
     next(e)
