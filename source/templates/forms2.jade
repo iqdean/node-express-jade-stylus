@@ -2,7 +2,7 @@ extend default
 
 // - relay ps   r1    r2    r3    app.get(/checkbox, ...) reads ps into rps[]
 // -         rps[0]  rps[1] rps[2]
-// - {"rps" : ['on', 'off', '']}
+// - {"rps" : ['1',  '0',   '']}      Value:  0-off 1-on ''=undefined
 
 block content
   p.
@@ -18,9 +18,9 @@ block content
         form(role="form")
           .form-group
             label Relay 1 
-              input(type="radio", name="r1", value="on", checked=rps[0]=="on")
+              input(type="radio", name="r1", value="1", checked=rps[1]=="1")
               |  On  
-              input(type="radio", name='r1', value="off", checked=rps[0]=="off")
+              input(type="radio", name='r1', value="0", checked=rps[1]=="0")
               |  Off   
             label Duration 
             select(name="r1dur")
@@ -32,9 +32,9 @@ block content
               option 5
           .form-group
             label Relay 2 
-              input(type="radio", name="r2", value="on", checked=rps[1]=="on")
+              input(type="radio", name="r2", value="1", checked=rps[2]=="1")
               |  On  
-              input(type="radio", name='r2', value="off", checked=rps[1]=="off")
+              input(type="radio", name='r2', value="0", checked=rps[2]=="0")
               |  Off   
             label Duration 
             select(name="r2dur")
@@ -46,9 +46,9 @@ block content
               option 5
           .form-group
             label Relay 3 
-              input(type="radio", name="r3", value="on", checked=rps[2]=="on")
+              input(type="radio", name="r3", value="1", checked=rps[3]=="1")
               |  On  
-              input(type="radio", name='r3', value="off", checked=rps[2]=="off")
+              input(type="radio", name='r3', value="0", checked=rps[3]=="0")
               |  Off   
             label Duration 
             select(name="r3dur")

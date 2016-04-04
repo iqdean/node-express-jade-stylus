@@ -42,6 +42,26 @@ Relay #   ( )  ( )    undefined     ''
 
           (*)  (*)    -- cant be selected ---     
 
+-----------------   req.body.rN	 Duration
+r1 state duration :  undefined	-1
+r2 state duration :  on        	-1
+r3 state duration :  undefined 	-1
+
+r1 state duration :  on 	-1
+r2 state duration :  off 	-1
+r3 state duration :  undefined 	-1
+
+
+--- How to test for undefined -----
+
+var x;
+
+if (x === undefined) {
+    txt = "x is undefined";
+} else {
+    txt = "x is defined";
+}
+---------------
 
 block content
   form(action='/relays', method='POST')
