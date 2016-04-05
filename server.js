@@ -1,3 +1,27 @@
+/*****************************************************************************
+Remote Relay Control using NODEJS 
+This module can be used to remote control relay cards over the network.
+It has numerous applications in automation applications.
+
+Ex: Any IA32 platforms: (ex: Edison, SBC, Tablet, Netbook, Chromebook, Notebook,
+ Server) that can run Linux and has USB ports for hooking up a usb-relay08 card or
+ has I2C support (ex: Edison) for connecting to a i2c-gpio -to- gpio Relay card
+
+Client PC     wired     Embedded PC <----usb------> USB-RELAY08 Card
+            <-- OR -->
+Client PC    wireless   Embedded PC <-i2c_to_gpio-> Arduino Relay Card
+              network
+
+This example is using build scripts in npm package.json
+
+TO build:  $ npm run clean
+           $ npm run build-css
+TO run:    $ npm run start           <- this starts the express server 
+                                        on port 3000 of localhost
+Access URL: localhost:3000
+
+******************************************************************************/
+
 var express = require('express')
   , logger = require('morgan')
   , app = express()
@@ -17,7 +41,7 @@ app.use(bodyParser.json());
 
 app.get('/', function (req, res, next) {
   try {
-    var html = template1({ title: '1ST UP TITLE' })
+    var html = template1({ title: 'REMOTE RELAY CONTROL WITH NODEJS' })
     res.send(html)
   } catch (e) {
     next(e)
@@ -33,7 +57,7 @@ app.get('/textbox', function (req, res, next) {
   }
 })
 
-app.get('/about', function (req, res, next) {
+app.get('/forms', function (req, res, next) {
   try {
     var html = template4({ title: 'Forms' })
     res.send(html)
@@ -55,22 +79,24 @@ app.post('/signup', function(req, res, next) {
 })
 
 app.get('/relaytest', function (req, res, next) {
+/*
 
-// TODO - add code to read relay ps and populate rps[]
+rs.json
 
-// for now send the jade template rps[] as the Present State of the relays
-// in the radiobox presented in the form to show the current state of the relay card
-// and allow user to change the state to the 'next state' using the same radiobox
-// ''  - means relay state not connected to anything, don't care
-// '0' - means relay is off
-// '1' - means relay is on
+  {"card":[{"r1":"0","r2":"1","r3":"1","r4":"","r5":"","r6":"","r7":"","r8":""}]}
 
-//           n/a  
-//Relay #:    0   1    2   3   4   5   6   7   8
-   var rps = ['', '', '1', '', '', '', '', '', '' ]
+PLAN B: 
+rs1Str < read relay state file (rs.json)  
+rs1Obj < JSON.parse(rs1Str)
+pass template file resulting rs1Obj
+update template file to set present state from rsObj
+*/
+
+  var rs1Obj = JSON.parse(fs.readFileSync('rs.json', 'utf8'));
+  console.log('rs1Obj : ', rs1Obj);
 
   try {  // assume we can pass json objects vs json strings to jade templates
-      var html = template5({ title: 'Relay Test', rps })
+      var html = template5({ title: 'Relay Test', rs1Obj })
     res.send(html)
   } catch (e) {
     next(e)
