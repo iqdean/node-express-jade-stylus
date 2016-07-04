@@ -104,6 +104,9 @@ update template file to set present state from rsObj
 
 })
 
+/* 20160703 show example of how to process json msg sent from postman
+            instead of a post coming from a form submit button
+
 app.post('/relays', function(req, res) {
 	var postBody = req.body;
 	console.log('postBody : ', req.body);
@@ -117,11 +120,45 @@ app.post('/relays', function(req, res) {
 	console.log('writing rs.json file...');
 	fs.writeFileSync('rs.json', JSON.stringify(rsObj));
 
-	/* rs.json
-        {"card":[{"r1":"0","r2":"1","r3":"1","r4":"","r5":"","r6":"","r7":"","r8":""}]}
-	 */
+	// rs.json
+        // {"card":[{"r1":"0","r2":"1","r3":"1","r4":"","r5":"","r6":"","r7":"","r8":""}]}
+	//
 
 	res.redirect('/relaytest')
+})
+*/
+
+// 20160703 As an example, redo app.post() to process json msg sent from postman
+// 1. INPUT FROM POSTMAN
+//    URL:  localhost:3000/relays
+//    POST>BODY>raw>JSON(application/json)
+//    {"card":[{"r1":"0","r2":"1","r3":"1","r4":"","r5":"","r6":"","r7":"","r8":""}]}
+// 1.1 Send
+
+// NOTE: In Postman - you have to enter a JSON String and not a JSON object otherwise
+//                    postman will tell you it's an BAD STRING
+//
+//    JSON String - both key:value quoted
+//    OK:
+//    {"card":[{"r1":"0","r2":"1","r3":"1","r4":"","r5":"","r6":"","r7":"","r8":""}]}
+//
+//    JSON Object - key un-quoted, value quoted
+//    BAD STRING:
+//    { card:[ { r1: '' , r2: '', r3: '', r4: '' , r5: '', r6: '' , r7: '', r8: ''}
+
+
+app.post('/relays', function(req,res) {
+    var postBody = req.body;
+    console.log('rcvd : ', req.body);
+    res.send('message recieved');
+
+// 2. In Console Log See: 
+// rcvd :  { card: [ { r1: '0', r2: '1', r3: '1', r4: '', r5: '', r6: '', r7: '', r8: '' } ] }
+// POST /relays 200 1.633 ms - 16
+
+// NOTE: req.body ends up being a parsed json object and not a json string
+//       so, if you post a json string, you rcv a parsed json object
+
 })
 
 app.listen(process.env.PORT || 3000, function () {
