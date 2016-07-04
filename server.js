@@ -148,9 +148,12 @@ app.post('/relays', function(req, res) {
 
 
 app.post('/relays', function(req,res) {
-    var postBody = req.body;
-    console.log('rcvd : ', req.body);
-    res.send('message recieved');
+    var postBody = req.body;           // get the POST msg
+    console.log('rcvd : ', req.body);  // do something with the message
+
+// respond to the msg w text
+
+    //res.send('message recieved');    //postman rcvs: message recieved
 
 // 2. In Console Log See: 
 // rcvd :  { card: [ { r1: '0', r2: '1', r3: '1', r4: '', r5: '', r6: '', r7: '', r8: '' } ] }
@@ -158,6 +161,10 @@ app.post('/relays', function(req,res) {
 
 // NOTE: req.body ends up being a parsed json object and not a json string
 //       so, if you post a json string, you rcv a parsed json object
+
+// respond to the msg w json
+
+   res.send({ some: 'json' });     // postman rcvs: {"some":"json"}
 
 })
 
