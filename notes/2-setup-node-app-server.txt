@@ -1,0 +1,157 @@
+GOAL:	a) Setup server-side node app on ubu14.04 that can be used to
+ 
+	b) to test npm packages that provide accss to xbox360 game controller
+
+	c) implement joystick input for Teleop Node using rosbridge server 
+
+Previous:  Install latest LTS versions of Node/NPM on ubu14.04
+
+THIS:	(a) setup server-side node app 
+
+Git clone node server app framework and see if it works
+
+1. Git Clone
+
+$ git clone idean@192.168.1.134:/opt/project-repo/9-node-express-jade-sytlus
+
+iqdean@hpdm4:~/u1404/nodeprojs$ tree 9-node-express-jade-sytlus/
+9-node-express-jade-sytlus/
+├── package.json
+├── Readme-1.txt
+├── Readme.txt
+├── server.js
+├── source
+│   ├── stylesheets
+│   │   └── index.styl
+│   └── templates
+│       ├── default.jade
+│       ├── forms1.jade
+│       ├── forms2.jade
+│       ├── #forms.jade#
+│       ├── forms.jade
+│       ├── homepage.jade
+│       └── newspage.jade
+└── static
+    └── css
+        └── index.css
+
+--- package.json lists all the npm packages that this app depends on ---
+
+iqdean@hpdm4:~/u1404/nodeprojs/9-node-express-jade-sytlus$ cat package.json
+{
+  "name": "9-node-express-jade-sytlus",
+  "version": "1.0.0",
+  "description": "ui to rc relays",
+  "main": "index.js",
+  "scripts": {
+    "build-css": "stylus source/stylesheets/index.styl -o static/css",
+    "watch-css": "stylus source/stylesheets/index.styl -o static/css -w",
+    "clean": "rm -rf static\\css && mkdir static\\css",
+    "build": "npm run clean && npm run build-css",
+    "watch": "npm run clean && npm run watch-css & nodemon server -e js,jade",
+    "start": "node server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "jade": "^1.11.0",
+    "morgan": "^1.7.0",
+    "nodemon": "^1.9.1",
+    "stylus": "^0.54.2"
+  }
+}
+
+2 --- install all the depend packages that this app requires ----
+
+iqdean@hpdm4:~/u1404/nodeprojs/9-node-express-jade-sytlus$ sudo npm install
+
+iqdean@hpdm4:~/u1404/nodeprojs/9-node-express-jade-sytlus$ tree -L 2
+.
+├── node_modules	<-- all the dependent npm packages endup in node_modules dir
+│   ├── body-parser
+│   ├── express
+│   ├── jade
+│   ├── morgan
+│   ├── nodemon
+│   └── stylus
+├── package.json
+├── Readme-1.txt
+├── Readme.txt
+├── server.js
+├── source
+│   ├── stylesheets
+│   └── templates
+└── static
+    └── css
+
+12 directories, 4 file
+
+3 --- In order to run this application, we need to create the rs.json file ----
+
+    REF: server.js
+    
+    In this example application the rs.json holds the intial state of the
+    each of the relays on the fictional relay card that it's supposed to
+    be controlling
+
+    each time the relay_control page is requested, the node app reads the
+    rs.json file to determine the 'Present' state of each relay and presents
+    that to the user
+
+    > In a real application, this code would query the relay state directly from
+      the relay card via either usb or i2c interface and then display the current
+      state for the user to see and write them to the rs.json file
+
+    The user can modify the state of the relays thru the various dialog boxes
+    on the /relay_control page 
+
+    When the user pushes the 'post' button, this node app simulates writing to
+    relay card by updating the rs.json file with the user requested states and 
+    then updates the /relay_control page dialog boxes to indicate the current
+    state
+
+    > In a real application, this code would also validate the user requested relay
+      states and then write them to the relay card via usb or i2c interface 
+       
+iqdean@hpdm4:~/u1404/nodeprojs/9-node-express-jade-sytlus
+$ touch rs.json
+$ emacs rs.json
+$ cat rs.json
+{"card":[{"r1":"0","r2":"1","r3":"1","r4":"","r5":"","r6":"","r7":"","r8":""}]}
+
+4 --- run the app
+      REF: server.js
+
+TO build:  $ npm run clean
+           $ npm run build-css
+TO run:    $ npm run start           <- this starts the express server 
+                                        on port 3000 of localhost
+Access URL: localhost:3000
+
+--- hmm, on linux u have to:
+
+$ npm run clean    Ok
+$ sudo run build-css    < works, but have to use sudo ??
+$ npm run start	
+
+Listening on http://localhost:3000
+
+http://localhost:3000/			screenshot
+http://localhost:3000/relaytest		screenshot
+
+consolelog output from app		screenshot 
+while processing get/post requests
+from the browser
+> here u can see rs.json file getting
+  read and written as you mess with the 
+  dialog boxes 
+
+> looks like the duration stuff is still a wip
+  durations are getting read correctly, but they aren't
+  getting persisted into the rs.json file when it gets
+  written to reflect next state, nor, are they getting
+  looked at when the rs.json file is read to determine
+  present state.
+
